@@ -23,8 +23,9 @@
     </div>
   </section>
 
-  <div class="columns">
-    <div class="column is-one-third">
+
+  <div class="level columns">
+    <div class="level-item column is-one-third">
       <nav class="panel">
         <p class="panel-heading">
             Search Cities 
@@ -37,12 +38,22 @@
               </span>
             </p>
           </div>
-          <!--- panel blocks for search history-->
+        <!--- panel blocks for search history-->
+        
+            <div class="select is-primary">
+              <select>
+                <option>Your Cities</option>
+                <!--choices from local storage-->
+              </select>
+            </div>
       </nav>
-    </div>
-    <div class="column is-two-thirds" id="weatherContainer">
+    </div> 
+    <div class="level-item column is-two-thirds" id="weatherContainer">
        <div class="card">
-           <h3 class="card-header-title" id="city-date"></h3>
+           <section class="card-header">
+           <h1 class="card-header-title" id="city-date"></h1>
+           <img class="card-header-icon" id="currentIcon" >
+           </section>
            <section class="card-content" id="currentWeather">
                <p id="currentTemp"></p>
                <p id="currentHumid"></p>
@@ -58,6 +69,66 @@
     </div>
     
   </div>
+  
+      <ul class="level columns is-full card">
+          <li class="column card ">
+               <section class="card-header">
+                <img class="card-header-icon" id="icon0">
+                <h4 class="card-header-title" id="indextitle0"></h4>
+               </section>
+               <section class="card-content">
+                 <p id="indexTemp0"></p>
+                 <p id="indexHumid0"></p>
+               </section>
+          </li>
+          <li class="column card ">
+            <section class="card-header">
+                <img class="card-header-icon" id="icon1">
+                <h4 class="card-header-title" id="indextitle1"></h4>
+               </section>
+               <section class="card-content">
+                 <p id="indexTemp1"></p>
+                 <p id="indexHumid1"></p>
+               </section>
+
+          </li>
+          <li class="column card ">
+            <section class="card-header">
+                <img class="card-header-icon" id="icon2">
+                <h4 class="card-header-title" id="indextitle2"></h4>
+               </section>
+               <section class="card-content">
+                 <p id="indexTemp2"></p>
+                 <p id="indexHumid2"></p>
+               </section>
+
+          </li>
+          <li class="column card ">
+            <section class="card-header">
+                <img class="card-header-icon" id="icon3">
+                <h4 class="card-header-title" id="indextitle3"></h4>
+               </section>
+               <section class="card-content">
+                 <p id="indexTemp3"></p>
+                 <p id="indexHumid3"></p>
+               </section>
+
+          </li>
+          <li class="column card ">
+            <section class="card-header">
+                <img class="card-header-icon" id="icon4">
+                <h4 class="card-header-title" id="indextitle4"></h4>
+               </section>
+               <section class="card-content">
+                 <p id="indexTemp4"></p>
+                 <p id="indexHumid4"></p>
+               </section>
+
+          </li>
+
+      </ul>
+
+  
 
 
 

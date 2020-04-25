@@ -1,6 +1,8 @@
 var citySearch = document.querySelector("#citySearch")
 var city = citySearch.value
+
 var today = new Date()
+
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
 // fetch from api for current weather
 
@@ -12,8 +14,8 @@ getCurrentWeather = function(city) {
      .then(function(response) {
          if (response.ok) {
              response.json().then(function(data){
-                
-                displayCurrentWeather(data)
+                console.log(data)
+                displayCurrentCity(data)
                 
                 
                //fetch for future weather using coord from data 
@@ -23,7 +25,7 @@ getCurrentWeather = function(city) {
                      if(response.ok){
                          response.json().then(function(data){
                              
-                            displayFutureWeather(data)
+                            displayWeather(data)
                              
                          })
            
@@ -49,31 +51,45 @@ getCurrentWeather = function(city) {
 }
 
 
+displayCurrentCity = function(data){
+    var cityTitle = document.querySelector("#city-date") 
+    var currentWeather= document.querySelector("#currentIcon")
+    cityTitle.textContent= data.name+":" +date
+    currentWeather.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png")
 
+    
+}
 //display data on screen 
   
   //current day
-displayCurrentWeather = function(data){
-  var cityTitle = document.querySelector("#city-date")
+displayWeather = function(data){
+
   var currentTemp = document.querySelector("#currentTemp")
   var currentHumid = document.querySelector("#currentHumid")
   var currentWind = document.querySelector("#currentWind")
- 
+  var currentUv = document.querySelector("#currentUv")
 
-  cityTitle.textContent=data.name+":" +date
-  currentTemp.textContent="Temperature: " +Math.ceil(data.main.temp)+"F"
-  currentHumid.textContent="Humidity: " +data.main.humidity+"%"
-  currentWind.textContent="Wind Speed: "+data.wind.speed+ "MPH"
+  
+  currentTemp.textContent="Temperature: " +Math.ceil(data.current.temp)+"F"
+  currentHumid.textContent="Humidity: " +data.current.humidity+"%"
+  currentWind.textContent="Wind Speed: "+data.current.wind_speed+ "MPH"
+  currentUv.textContent="UV Index: "+data.current.uvi
 
-
-}
-  /// future weather
-  displayFutureWeather = function(data){
       console.log(data)
-      var currentUv = document.querySelector("#currentUv")
+      
+    
 
+    for(i=0;i<data.daily.length-2;i++){
+        var indexTitle = document.querySelector("#indextitle"+i)
+        var indexTemp = document.querySelector("#indexTemp"+i)
+        var indexHumid = document.querySelector("#indexHumid"+i)
+        var icon = document.querySelector("#icon"+i)
 
-      currentUv.textContent="UV Index: "+data.daily[0].uvi
+    indexTitle.textContent=(today.getMonth()+1)+'/'+(today.getDate()+i+1)+'/'+today.getFullYear();
+    indexTemp.textContent="Temp: "+Math.ceil(data.daily[i].temp.day)
+    indexHumid.textContent="Humidity: "+data.daily[i].humidity+"%"
+    icon.setAttribute("src","http://openweathermap.org/img/wn/"+data.daily[i].weather[0].icon+"@2x.png")
+     }
   }
 
 //call fetch on search terms
