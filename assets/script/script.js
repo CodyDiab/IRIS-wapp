@@ -75,7 +75,9 @@ displayWeather = function(data){
   currentHumid.textContent="Humidity: " +data.current.humidity+"%"
   currentWind.textContent="Wind Speed: "+data.current.wind_speed+ "MPH"
   currentUv.textContent="UV Index: "+data.current.uvi
-
+       if(data.current.uvi > 7){
+           currentUv.className = "danger"
+       }
       console.log(data)
      
       
