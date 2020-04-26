@@ -11,7 +11,7 @@ let cityHistory= JSON.parse(window.localStorage.getItem('cities'))
 
 getCurrentWeather = function(city) {
    
-    var currentUrl = "http://api.openweathermap.org/data/2.5/weather?q="+ city + "&appid=858b3927a8044ecb64a2c351fd3d6fad&units=imperial"
+    var currentUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ city + "&appid=858b3927a8044ecb64a2c351fd3d6fad&units=imperial"
    
     fetch(currentUrl)
      .then(function(response) {
