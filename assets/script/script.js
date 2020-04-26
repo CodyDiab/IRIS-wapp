@@ -17,7 +17,7 @@ getCurrentWeather = function(city) {
      .then(function(response) {
          if (response.ok) {
              response.json().then(function(data){
-                console.log(data)
+                
                 displayCurrentCity(data)
                  
                 
@@ -81,7 +81,7 @@ displayWeather = function(data){
        }else{
            currentUv.className = "green"
        }
-      console.log(data)
+      
      
       
     
