@@ -4,9 +4,9 @@ let cityHistory= JSON.parse(window.localStorage.getItem('cities'))
 
 
 
-////var today = new Date()
 
-//var currentDate = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
+
+
 // fetch from api for current weather
 
 getCurrentWeather = function(city) {
@@ -19,6 +19,7 @@ getCurrentWeather = function(city) {
              response.json().then(function(data){
                 console.log(data)
                 displayCurrentCity(data)
+                 
                 
                 
                //fetch for future weather using coord from data 
@@ -36,12 +37,6 @@ getCurrentWeather = function(city) {
                      }
                  })
                 
-                
-                
-                
-
-        
-             
              })
          }else{
             alert("Error: " + response.statusText);
@@ -55,19 +50,20 @@ getCurrentWeather = function(city) {
 
 }
 
-
+// display for current day
 displayCurrentCity = function(data){
     var currentDate= new Date(data.dt*1000).toLocaleDateString("en-US")
     var cityTitle = document.querySelector("#city-date") 
     var currentWeather= document.querySelector("#currentIcon")
     cityTitle.textContent= data.name+":" +currentDate
     currentWeather.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png")
-
+   
+    
     
 }
 //display data on screen 
   
-  //current day
+  //future forecaste/ current details
 displayWeather = function(data){
 
   var currentTemp = document.querySelector("#currentTemp")
@@ -89,7 +85,7 @@ displayWeather = function(data){
      
       
     
-
+/// iterate through data for future forecast
     for(i=1;i<data.daily.length-1;i++){
 
         var indexTitle = document.querySelector("#indextitle"+i)
@@ -108,30 +104,39 @@ displayWeather = function(data){
 
  
 
-//search history??
-var dropSelectHandler= function(event){
-    var dropCity = event.target.getAttribute("data-city")
+//create button for search history on reload
+var buttonHandler= function(event){
+    var btnCity = event.target.getAttribute("data-city")
     
-    getCurrentWeather(dropCity)
+    getCurrentWeather(btnCity)
 }
 
     
-appendDrop=function() {
+loadButtons=function() {
     
+    var buttonCities=JSON.parse(window.localStorage.getItem('cities'))
    
-    for(i=0;i<cityHistory.length;i++){
-        var history= document.querySelector("#history")
-       var dropOption = document.createElement("option")
+    
+    for(i=0;i<buttonCities.length;i++){
+
+        var otherButtons= document.querySelector(".button")
+        var history= document.querySelector("#cityBtns")
+        var inQuestion=JSON.stringify(buttonCities[i])
+    if (!otherButtons||
+        inQuestion!=otherButtons.getAttribute("data-city"))
+    {
+       var button = document.createElement("button")
            
        
-       dropOption.textContent=cityHistory[i]
-       dropOption.setAttribute('data-city',cityHistory[i] )
-       history.appendChild(dropOption)
+       button.textContent=buttonCities[i]
+       button.setAttribute('class', 'button is-info')
+       button.setAttribute('data-city',buttonCities[i] )
+       history.appendChild(button)
 
-       dropOption.addEventListener("click", dropSelectHandler)
+       button.addEventListener("click", buttonHandler)
     
        
-       
+    }
 
 
 
@@ -142,28 +147,48 @@ appendDrop=function() {
           
        
     }
-    
-}
+  }
+
 
 
 //event listener search
 document.querySelector('#searchBox').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
+
+        
         var citySearch = document.querySelector("#citySearch");
         var city = citySearch.value.trim();
-        // cityHistory.push(city)
-        // check for duplicates
-        getCurrentWeather(city)
-        
-        if (cityHistory.indexOf(city) === -1) 
-        cityHistory.push(city);
         
       
+        getCurrentWeather(city)
+        
+        if(cityHistory){
+            if (cityHistory.indexOf(city) === -1) 
+         cityHistory.push(city);
+         
+         }else{
+           cityHistory=[]
+             cityHistory.push(city);
+        
+        
+     
+         }
+         window.localStorage.setItem("cities",JSON.stringify(cityHistory))
+        
+         var history= document.querySelector("#cityBtns")
+         var button = document.createElement("button")
+           
+       
+       button.textContent=city
+       button.setAttribute('class', 'button is-info')
+       button.setAttribute('data-city',city )
+       history.appendChild(button)
+
+       button.addEventListener("click", buttonHandler)
     
-    }
+    
+        }
+  
 
-    window.localStorage.setItem("cities",JSON.stringify(cityHistory))
-    //appendDrop()
 });
-
-appendDrop()
+loadButtons()
