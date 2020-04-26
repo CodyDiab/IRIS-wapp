@@ -1,5 +1,8 @@
 var citySearch = document.querySelector("#citySearch")
 var city = citySearch.value
+let cityHistory= JSON.parse(window.localStorage.getItem('cities'))
+
+
 
 ////var today = new Date()
 
@@ -40,6 +43,8 @@ getCurrentWeather = function(city) {
         
              
              })
+         }else{
+            alert("Error: " + response.statusText);
          }
 
 
@@ -77,6 +82,8 @@ displayWeather = function(data){
   currentUv.textContent="UV Index: "+data.current.uvi
        if(data.current.uvi > 7){
            currentUv.className = "danger"
+       }else{
+           currentUv.className = "green"
        }
       console.log(data)
      
@@ -99,17 +106,64 @@ displayWeather = function(data){
      }
   }
 
-//call fetch on search terms
+ 
 
 //search history??
+var dropSelectHandler= function(event){
+    var dropCity = event.target.getAttribute("data-city")
+    
+    getCurrentWeather(dropCity)
+}
+
+    
+appendDrop=function() {
+    
+   
+    for(i=0;i<cityHistory.length;i++){
+        var history= document.querySelector("#history")
+       var dropOption = document.createElement("option")
+           
+       
+       dropOption.textContent=cityHistory[i]
+       dropOption.setAttribute('data-city',cityHistory[i] )
+       history.appendChild(dropOption)
+
+       dropOption.addEventListener("click", dropSelectHandler)
+    
+       
+       
 
 
 
-//event listeners
+
+       
+     
+      
+          
+       
+    }
+    
+}
+
+
+//event listener search
 document.querySelector('#searchBox').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         var citySearch = document.querySelector("#citySearch");
         var city = citySearch.value.trim();
+        // cityHistory.push(city)
+        // check for duplicates
         getCurrentWeather(city)
+        
+        if (cityHistory.indexOf(city) === -1) 
+        cityHistory.push(city);
+        
+      
+    
     }
+
+    window.localStorage.setItem("cities",JSON.stringify(cityHistory))
+    //appendDrop()
 });
+
+appendDrop()

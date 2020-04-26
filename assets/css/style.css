@@ -1,7 +1,16 @@
+
+.no-click{
+    background-color: grey;
+    pointer-events: none;
+}
+
 #city-date {
     font-size: x-large;
 }
 
 .danger{
     color:rgb(255, 65, 17)
+}
+.green{
+    color:greenyellow
 }
