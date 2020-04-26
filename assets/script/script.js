@@ -1,9 +1,9 @@
 var citySearch = document.querySelector("#citySearch")
 var city = citySearch.value
 
-var today = new Date()
+////var today = new Date()
 
-var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
+//var currentDate = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
 // fetch from api for current weather
 
 getCurrentWeather = function(city) {
@@ -52,9 +52,10 @@ getCurrentWeather = function(city) {
 
 
 displayCurrentCity = function(data){
+    var currentDate= new Date(data.dt*1000).toLocaleDateString("en-US")
     var cityTitle = document.querySelector("#city-date") 
     var currentWeather= document.querySelector("#currentIcon")
-    cityTitle.textContent= data.name+":" +date
+    cityTitle.textContent= data.name+":" +currentDate
     currentWeather.setAttribute("src","http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png")
 
     
@@ -76,16 +77,20 @@ displayWeather = function(data){
   currentUv.textContent="UV Index: "+data.current.uvi
 
       console.log(data)
+     
       
     
 
-    for(i=0;i<data.daily.length-2;i++){
+    for(i=1;i<data.daily.length-1;i++){
+
         var indexTitle = document.querySelector("#indextitle"+i)
         var indexTemp = document.querySelector("#indexTemp"+i)
         var indexHumid = document.querySelector("#indexHumid"+i)
         var icon = document.querySelector("#icon"+i)
 
-    indexTitle.textContent=(today.getMonth()+1)+'/'+(today.getDate()+i+1)+'/'+today.getFullYear();
+        var futureDates= new Date(data.daily[i].dt * 1000).toLocaleDateString("en","US")
+        
+    indexTitle.textContent=futureDates
     indexTemp.textContent="Temp: "+Math.ceil(data.daily[i].temp.day)
     indexHumid.textContent="Humidity: "+data.daily[i].humidity+"%"
     icon.setAttribute("src","http://openweathermap.org/img/wn/"+data.daily[i].weather[0].icon+"@2x.png")
