@@ -88,7 +88,7 @@ displayWeather = function(data){
 /// iterate through data for future forecast
     for(i=1;i<data.daily.length-1;i++){
 
-        var indexTitle = document.querySelector("#indextitle"+i)
+        var indexTitle = document.querySelector(`#indextitle${i}`)
         var indexTemp = document.querySelector("#indexTemp"+i)
         var indexHumid = document.querySelector("#indexHumid"+i)
         var icon = document.querySelector("#icon"+i)
