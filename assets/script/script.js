@@ -94,7 +94,7 @@ displayWeather = function(data){
         var icon = document.querySelector("#icon"+i)
 
         var futureDates= new Date(data.daily[i].dt * 1000).toLocaleDateString("en","US")
-        
+        console.log(indexTitle)
     indexTitle.textContent=futureDates
     indexTemp.textContent="Temp: "+Math.ceil(data.daily[i].temp.day)
     indexHumid.textContent="Humidity: "+data.daily[i].humidity+"%"
