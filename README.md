@@ -9,7 +9,7 @@
 
  + Your cities of search apear as easy access icons for future viewing
 
- + You history persists when App is closed
+ + Your history persists when App is closed
   
 [Link to IRIS Live](https://codydiab.github.io/IRIS-wapp/)
 
