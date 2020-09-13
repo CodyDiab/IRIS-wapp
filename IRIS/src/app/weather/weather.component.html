@@ -1,1 +1,123 @@
-<p>weather works!</p>
+ <section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        IRIS
+      </h1>
+      <h2 class="subtitle">
+        Global Weather View
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<div class="level columns">
+  <div class="level-item column is-one-third">
+    <form class="panel" [formGroup]="weatherSearchForm"
+    (ngSubmit)="sendToOpenWeatherAPI(weatherSearchForm.value)">
+      <p class="panel-heading">
+          Search Cities 
+        </p>
+        <div class="panel-block">
+          <p class="control has-icons-left" id="searchBox">
+            <input
+             class="input" 
+             type="text" 
+             placeholder="Search" 
+             id="citySearch"
+             formControlName="location"/>
+            <span class="icon is-left">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+            <!-- <button type="submit" class="button"
+            >Search</button> -->
+          </p>
+        </div>
+      <!--- panel blocks for search history-->
+      
+      <div id="cityBtns">
+          
+    </div>
+</form>
+</div> 
+<div class="level-item column is-two-thirds" id="weatherContainer">
+<div class="card">
+   <section class="card-header">
+   <h1 class="card-header-title" id="city-date"></h1>
+   <img class="card-header-icon" id="currentIcon" >
+   </section>
+   <section class="card-content" id="currentWeather">
+       <p id="currentTemp"></p>
+       <p id="currentHumid"></p>
+       <p id="currentWind"></p>
+       <p id="currentUv"></p>
+
+   </section>
+
+</div>
+<div>
+</div>
+
+</div>
+
+</div>
+
+<ul class="level columns is-full card">
+  <li class="column card ">
+       <section class="card-header">
+        <img class="card-header-icon" id="icon1">
+        <h4 class="card-header-title" id="indextitle1"></h4>
+       </section>
+       <section class="card-content">
+         <p id="indexTemp1"></p>
+         <p id="indexHumid1"></p>
+       </section>
+  </li>
+  <li class="column card ">
+    <section class="card-header">
+        <img class="card-header-icon" id="icon2">
+        <h4 class="card-header-title" id="indextitle2"></h4>
+       </section>
+       <section class="card-content">
+         <p id="indexTemp2"></p>
+         <p id="indexHumid2"></p>
+       </section>
+
+  </li>
+  <li class="column card ">
+    <section class="card-header">
+        <img class="card-header-icon" id="icon3">
+        <h4 class="card-header-title" id="indextitle3"></h4>
+       </section>
+       <section class="card-content">
+         <p id="indexTemp3"></p>
+         <p id="indexHumid3"></p>
+       </section>
+
+  </li>
+  <li class="column card ">
+    <section class="card-header">
+        <img class="card-header-icon" id="icon4">
+        <h4 class="card-header-title" id="indextitle4"></h4>
+       </section>
+       <section class="card-content">
+         <p id="indexTemp4"></p>
+         <p id="indexHumid4"></p>
+       </section>
+
+  </li>
+  <li class="column card ">
+    <section class="card-header">
+        <img class="card-header-icon" id="icon5">
+        <h4 class="card-header-title" id="indextitle5"></h4>
+       </section>
+       <section class="card-content">
+         <p id="indexTemp5"></p>
+         <p id="indexHumid5"></p>
+       </section>
+
+      </li>
+  </ul>
+
+
