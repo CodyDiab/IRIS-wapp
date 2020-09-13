@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {ApiService} from "../api.service";
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -7,7 +8,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class WeatherComponent implements OnInit {
   public weatherSearchForm:FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  public weatherData: any;
+  constructor(
+    private formBuilder: FormBuilder,
+    private apiService: ApiService
+    ) { }
 
   ngOnInit() {
     this.weatherSearchForm = this.formBuilder.group({
@@ -15,38 +20,10 @@ export class WeatherComponent implements OnInit {
     });
   }
    sendToOpenWeatherAPI(formValues) {
-     console.log(formValues);
-     var currentUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ formValues.location + "&appid=858b3927a8044ecb64a2c351fd3d6fad&units=imperial"
-   
-     fetch(currentUrl)
-      .then(function(response) {
-          if (response.ok) {
-              response.json().then(function(data){
-                 
-                 console.log(data)
-                  
-                 
-                 
-                //fetch for future weather using coord from data 
-                 var futureUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+data.coord.lat+"&lon=" +data.coord.lon+ "&appid=858b3927a8044ecb64a2c351fd3d6fad&units=imperial"
-                 fetch(futureUrl)
-                  .then(function(response){
-                      if(response.ok){
-                          response.json().then(function(data){
-                              
-                             console.log(data)
-                              
-                          })
-            
-                          
-                      }
-                  })
-                 
-              })
-          }else{
-             alert("Error: " + response.statusText);
-          }
- 
-   })
-  }
+      this.apiService
+       .getWeather(formValues.location)
+       .subscribe(data => this.weatherData = data);
+         console.log(this.weatherData);
+     
+   }
 }
